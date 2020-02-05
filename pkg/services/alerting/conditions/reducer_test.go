@@ -1,6 +1,7 @@
 package conditions
 
 import (
+	"math"
 	"testing"
 
 	. "github.com/smartystreets/goconvey/convey"
@@ -20,6 +21,11 @@ func TestSimpleReducer(t *testing.T) {
 		Convey("min", func() {
 			result := testReducer("min", 3, 2, 1)
 			So(result, ShouldEqual, float64(1))
+		})
+
+		Convey("min should work with NaNs", func() {
+			result := testReducer("min", math.NaN(), math.NaN(), math.NaN())
+			So(result, ShouldEqual, float64(0))
 		})
 
 		Convey("max", func() {
