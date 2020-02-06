@@ -30,8 +30,11 @@ func NewFloat(f float64, valid bool) Float {
 	}
 }
 
-// FloatFrom creates a new Float that will always be valid.
+// FloatFrom creates a new Float that be null if f is NaN.
 func FloatFrom(f float64) Float {
+	if math.IsNaN(f) {
+		return NewFloat(0, false)
+	}
 	return NewFloat(f, true)
 }
 
