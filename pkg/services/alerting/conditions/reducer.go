@@ -48,7 +48,7 @@ func (s *queryReducer) Reduce(series *tsdb.TimeSeries) null.Float {
 	case "min":
 		value = math.MaxFloat64
 		for _, point := range series.Points {
-			if point[0].Valid {
+			if point[0].Valid && !math.IsNaN(point[0].Float64) {
 				allNull = false
 				if value > point[0].Float64 {
 					value = point[0].Float64
